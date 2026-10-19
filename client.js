@@ -76,6 +76,20 @@ window.__ModuleLoader__.load({
       sessionLoading: 'Loading…',
       sessionGlobal: 'Inherited from global defaults',
       sessionModalHint: 'Per-session override. Unset values follow the global defaults.',
+      sessionScope: 'This session',
+      sessionStatusTitle: 'Session system prompt',
+      sessionStatusOnDesc: 'Enabled — applied to the next model request.',
+      sessionStatusOffDesc: 'Disabled — the harness default prompt is used.',
+      sessionStatusNoTemplateDesc: 'Enabled, but no template is selected yet.',
+      sessionOverrideBadge: 'Session override',
+      sessionInheritBadge: 'Following global',
+      sessionRestore: 'Restore global',
+      previewExpand: 'Expand',
+      previewCollapse: 'Collapse',
+      previewCopy: 'Copy',
+      previewCopied: 'Copied',
+      sessionApplyHint: 'Changes are saved automatically and apply to the next request.',
+      done: 'Done',
       close: 'Close',
       sessionOverride: 'Session override',
       previewUnavailable: 'Preview is unavailable until the page reconnects.',
@@ -148,6 +162,20 @@ window.__ModuleLoader__.load({
       sessionLoading: '加载中…',
       sessionGlobal: '继承全局设置',
       sessionModalHint: '当前会话的独立设置；没有覆盖的项跟随全局默认。',
+      sessionScope: '当前会话',
+      sessionStatusTitle: '本会话系统提示词',
+      sessionStatusOnDesc: '已启用，将在下一次模型请求时生效。',
+      sessionStatusOffDesc: '已关闭，使用 Harness 默认系统提示词。',
+      sessionStatusNoTemplateDesc: '已启用，但尚未选择模板。',
+      sessionOverrideBadge: '会话覆盖',
+      sessionInheritBadge: '跟随全局',
+      sessionRestore: '恢复继承',
+      previewExpand: '展开',
+      previewCollapse: '收起',
+      previewCopy: '复制',
+      previewCopied: '已复制',
+      sessionApplyHint: '修改会自动保存，并在下一次模型请求时生效。',
+      done: '完成',
       close: '关闭',
       sessionOverride: '会话覆盖',
       previewUnavailable: '页面重新连接后才能预览。',
@@ -244,22 +272,39 @@ window.__ModuleLoader__.load({
 .psx-mini-icon{display:inline-flex;flex:none;color:var(--psx-accent)}
 .psx-icon-btn{display:inline-grid;place-items:center;flex:none;width:26px;height:26px;padding:0;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--psx-muted);cursor:pointer}
 .psx-icon-btn:hover{background:color-mix(in srgb,var(--psx-text) 7%,transparent);color:var(--psx-text)}
-.psx-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;background:color-mix(in srgb,var(--dsw-alias-bg-base) 62%,transparent);backdrop-filter:blur(3px);pointer-events:auto}
-.psx-modal{width:min(560px,100%);max-height:min(82vh,760px);overflow:auto;padding:18px 20px 14px;border:1px solid var(--psx-line-strong);border-radius:16px;background:var(--dsw-alias-bg-overlay);box-shadow:0 16px 60px color-mix(in srgb,var(--dsw-alias-bg-base) 55%,transparent)}
-.psx-modal-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
+.psx-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;background:color-mix(in srgb,var(--dsw-alias-bg-base) 62%,transparent);backdrop-filter:blur(3px);pointer-events:auto;animation:psx-overlay-in .14s ease-out}
+.psx-modal{display:flex;flex-direction:column;width:min(600px,100%);max-height:min(84vh,780px);overflow:hidden;border:1px solid var(--psx-line-strong);border-radius:18px;background:var(--dsw-alias-bg-overlay);box-shadow:0 24px 80px color-mix(in srgb,var(--dsw-alias-bg-base) 60%,transparent);animation:psx-modal-in .18s ease-out}
+.psx-modal-head{display:flex;align-items:center;gap:12px;flex:none;padding:18px 20px 14px;border-bottom:1px solid var(--psx-line)}
+.psx-modal-mark{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid var(--psx-line);border-radius:11px;background:var(--psx-surface-2);color:var(--psx-accent)}
+.psx-modal-title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .psx-modal-title{margin:0;font-size:16px;font-weight:650;letter-spacing:-.01em}
 .psx-modal-head .psx-icon-btn{margin-left:auto}
-.psx-modal-body{display:flex;flex-direction:column;gap:12px}
+.psx-modal-body{display:flex;flex-direction:column;gap:14px;min-height:0;padding:16px 20px 12px;overflow:auto}
 .psx-modal-body .psx-field{margin-top:0}
 .psx-modal-body .psx-empty{margin-top:0}
-.psx-modal-body .psx-pre{max-height:260px}
+.psx-modal-body .psx-pre{max-height:200px;transition:max-height .18s ease}
+.psx-modal-body .psx-pre.is-expanded{max-height:420px}
 .psx-modal-note{color:var(--psx-muted);font-size:11.5px;line-height:1.5}
-.psx-modal-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}
-.psx-modal-foot{display:flex;align-items:center;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid var(--psx-line)}
+.psx-modal-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:0}
+.psx-modal-foot{display:flex;align-items:center;gap:8px;flex:none;padding:12px 20px;border-top:1px solid var(--psx-line);background:var(--dsw-alias-bg-overlay)}
 .psx-row{display:flex;align-items:center;gap:10px;min-width:0;flex-wrap:wrap}
 .psx-modal .psx-select{height:36px}
+.psx-status-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--psx-line);border-radius:12px;background:var(--psx-surface-2)}
+.psx-status-orb{flex:none;width:9px;height:9px;border-radius:50%;background:var(--dsw-alias-state-idle-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--dsw-alias-state-idle-primary) 14%,transparent)}
+.psx-status-orb.is-on{background:var(--dsw-alias-state-success-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--dsw-alias-state-success-primary) 16%,transparent)}
+.psx-status-copy{flex:1;min-width:0}
+.psx-status-title{font-size:12.5px;font-weight:600}
+.psx-status-desc{margin-top:2px;color:var(--psx-muted);font-size:11px;line-height:1.45}
+.psx-field-head{display:flex;align-items:center;gap:8px;min-height:20px;flex-wrap:wrap}
+.psx-mini-btn{height:24px;padding:0 7px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--psx-muted);font:inherit;font-size:10.5px;font-weight:550;cursor:pointer;white-space:nowrap}
+.psx-mini-btn:hover:not(:disabled){background:color-mix(in srgb,var(--psx-text) 7%,transparent);color:var(--psx-text)}
+.psx-mini-btn:disabled{opacity:.5;cursor:not-allowed}
+.psx-preview-actions{display:flex;align-items:center;gap:1px;flex-wrap:wrap}
+@keyframes psx-overlay-in{from{opacity:0}to{opacity:1}}
+@keyframes psx-modal-in{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.psx-overlay,.psx-modal{animation:none}}
 @media (max-width:980px){.psx-grid{grid-template-columns:minmax(0,1fr)}.psx-preview{position:static}.psx-inner{padding:22px 18px 56px}.psx-editor-grid{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:560px){.psx-hero{flex-wrap:wrap}.psx-author{margin-left:62px}.psx-overlay{padding:12px}.psx-modal{max-height:88vh;padding:16px}}
+@media (max-width:560px){.psx-hero{flex-wrap:wrap}.psx-author{margin-left:62px}.psx-overlay{padding:12px}.psx-modal{max-height:90vh;border-radius:14px}.psx-modal-head,.psx-modal-body,.psx-modal-foot{padding-left:16px;padding-right:16px}}
 `
 
     const BLANK = { id: null, name: '', mode: 'append', text: '' }
@@ -1099,6 +1144,8 @@ window.__ModuleLoader__.load({
           const [busy, setBusy] = React.useState(false)
           const [error, setError] = React.useState(null)
           const [preview, setPreview] = React.useState({ loading: false, data: null, error: null })
+          const [expanded, setExpanded] = React.useState(false)
+          const [copied, setCopied] = React.useState(false)
           const previewSeq = React.useRef(0)
 
           React.useEffect(() => {
@@ -1111,10 +1158,33 @@ window.__ModuleLoader__.load({
             return () => document.removeEventListener('keydown', onKey)
           }, [open, sessionId])
 
+          React.useEffect(() => {
+            if (!open) return
+            setExpanded(false)
+            setCopied(false)
+          }, [open, sessionId])
+
+          React.useEffect(() => {
+            if (!copied) return undefined
+            const timer = setTimeout(() => setCopied(false), 1600)
+            return () => clearTimeout(timer)
+          }, [copied])
+
           const entry = open && sessionId ? store.sessions.get(sessionId) : null
           const data = entry?.data
           const effective = data?.effective
           const override = data?.override
+
+          async function copyPreview() {
+            const value = preview.data?.result
+            if (!value || !navigator.clipboard?.writeText) return
+            try {
+              await navigator.clipboard.writeText(value)
+              setCopied(true)
+            } catch {
+              // Clipboard permission can be denied; keep the dialog usable.
+            }
+          }
 
           function refreshPreview() {
             if (!effective?.hasTemplate || !sessionId) return
@@ -1165,11 +1235,6 @@ window.__ModuleLoader__.load({
             }
           }
 
-          const active = Boolean(effective?.active)
-          const templateLabel = effective?.templateName
-            ? `${effective.templateName} · ${effective.mode === 'replace' ? t('modeReplace') : t('modeAppend')}`
-            : t('sessionNoTemplate')
-
           const content = !data
             ? h('div', { className: 'psx-empty' }, entry?.error ?? t('sessionLoading'))
             : h(
@@ -1177,24 +1242,55 @@ window.__ModuleLoader__.load({
                 null,
                 h(
                   'div',
-                  { className: 'psx-row' },
+                  { className: 'psx-status-card' },
+                  h('span', { className: `psx-status-orb${effective?.enabled ? ' is-on' : ''}` }),
                   h(
-                    'span',
-                    { className: `psx-chip${active ? ' is-on' : ''}` },
-                    active ? t('sessionEnabled') : t('sessionDisabled'),
+                    'div',
+                    { className: 'psx-status-copy' },
+                    h('div', { className: 'psx-status-title' }, t('sessionStatusTitle')),
+                    h(
+                      'div',
+                      { className: 'psx-status-desc' },
+                      effective?.enabled
+                        ? effective?.hasTemplate
+                          ? t('sessionStatusOnDesc')
+                          : t('sessionStatusNoTemplateDesc')
+                        : t('sessionStatusOffDesc'),
+                    ),
                   ),
-                  h('span', { className: 'psx-spacer' }),
                   h(Switch, {
                     checked: Boolean(effective?.enabled),
-                    label: t('sessionEnabled'),
+                    label: t('sessionStatusTitle'),
                     disabled: busy,
                     onChange: (value) => void update({ enabled: value }),
                   }),
                 ),
                 h(
-                  'label',
+                  'div',
                   { className: 'psx-field' },
-                  h('span', { className: 'psx-label' }, t('sessionTemplate')),
+                  h(
+                    'div',
+                    { className: 'psx-field-head' },
+                    h('span', { className: 'psx-label' }, t('sessionTemplate')),
+                    h('span', { className: 'psx-spacer' }),
+                    h(
+                      'span',
+                      { className: `psx-chip${override ? ' is-accent' : ''}` },
+                      override ? t('sessionOverrideBadge') : t('sessionInheritBadge'),
+                    ),
+                    override
+                      ? h(
+                          'button',
+                          {
+                            type: 'button',
+                            className: 'psx-mini-btn',
+                            disabled: busy,
+                            onClick: () => void update({}),
+                          },
+                          t('sessionRestore'),
+                        )
+                      : null,
+                  ),
                   h(
                     'select',
                     {
@@ -1225,24 +1321,6 @@ window.__ModuleLoader__.load({
                     ),
                   ),
                 ),
-                h(
-                  'div',
-                  { className: 'psx-row' },
-                  h('span', { className: 'psx-modal-note' }, templateLabel),
-                  h('span', { className: 'psx-spacer' }),
-                  override
-                    ? h(
-                        'button',
-                        {
-                          type: 'button',
-                          className: 'psx-btn psx-btn-ghost',
-                          disabled: busy,
-                          onClick: () => void update({}),
-                        },
-                        t('sessionFollowGlobal'),
-                      )
-                    : null,
-                ),
                 error ? h('div', { className: 'psx-error' }, error) : null,
                 !effective?.hasTemplate
                   ? h('div', { className: 'psx-empty' }, t('sessionNoTemplate'))
@@ -1254,14 +1332,38 @@ window.__ModuleLoader__.load({
                         { className: 'psx-modal-section-head' },
                         h('span', { className: 'psx-label' }, t('previewTitle')),
                         h(
-                          'button',
-                          {
-                            type: 'button',
-                            className: 'psx-btn psx-btn-ghost',
-                            disabled: preview.loading,
-                            onClick: refreshPreview,
-                          },
-                          preview.loading ? t('previewLoading') : t('refresh'),
+                          'div',
+                          { className: 'psx-preview-actions' },
+                          h(
+                            'button',
+                            {
+                              type: 'button',
+                              className: 'psx-mini-btn',
+                              disabled: !preview.data?.result,
+                              onClick: () => void copyPreview(),
+                            },
+                            copied ? t('previewCopied') : t('previewCopy'),
+                          ),
+                          h(
+                            'button',
+                            {
+                              type: 'button',
+                              className: 'psx-mini-btn',
+                              disabled: !preview.data?.result,
+                              onClick: () => setExpanded((value) => !value),
+                            },
+                            expanded ? t('previewCollapse') : t('previewExpand'),
+                          ),
+                          h(
+                            'button',
+                            {
+                              type: 'button',
+                              className: 'psx-mini-btn',
+                              disabled: preview.loading,
+                              onClick: refreshPreview,
+                            },
+                            preview.loading ? t('previewLoading') : t('refresh'),
+                          ),
                         ),
                       ),
                       preview.error
@@ -1277,11 +1379,13 @@ window.__ModuleLoader__.load({
                                 ? `${t('previewBase')} ${
                                     preview.data.sessionTitle || shortId(preview.data.sessionId)
                                   }`
-                                : t('previewNoBase'),
+                                : preview.loading
+                                  ? t('previewLoading')
+                                  : t('previewNoBase'),
                             ),
                             h(
                               'pre',
-                              { className: 'psx-pre psx-pre-modal' },
+                              { className: `psx-pre psx-pre-modal${expanded ? ' is-expanded' : ''}` },
                               preview.loading
                                 ? t('previewLoading')
                                 : preview.data?.result?.trim()
@@ -1290,7 +1394,7 @@ window.__ModuleLoader__.load({
                             ),
                           ),
                     ),
-                h('p', { className: 'psx-footnote' }, t('applyHint')),
+                h('p', { className: 'psx-footnote' }, t('sessionApplyHint')),
               )
 
           return h(
@@ -1313,11 +1417,16 @@ window.__ModuleLoader__.load({
               h(
                 'div',
                 { className: 'psx-modal-head' },
-                h('span', { className: 'psx-mini-icon' }, h(BrandGlyph, { size: 20 })),
+                h('span', { className: 'psx-modal-mark' }, h(BrandGlyph, { size: 20 })),
                 h(
                   'div',
                   { className: 'psx-grow' },
-                  h('h2', { className: 'psx-modal-title' }, t('sessionTitle')),
+                  h(
+                    'div',
+                    { className: 'psx-modal-title-row' },
+                    h('h2', { className: 'psx-modal-title' }, t('sessionTitle')),
+                    h('span', { className: 'psx-chip' }, t('sessionScope')),
+                  ),
                   h('p', { className: 'psx-hint' }, t('sessionModalHint')),
                 ),
                 h(
@@ -1339,7 +1448,11 @@ window.__ModuleLoader__.load({
                 { className: 'psx-modal-foot' },
                 h('button', { type: 'button', className: 'psx-btn psx-btn-ghost', onClick: manage }, t('sessionManage')),
                 h('span', { className: 'psx-spacer' }),
-                h('button', { type: 'button', className: 'psx-btn', onClick: () => store.closeModal() }, t('close')),
+                h(
+                  'button',
+                  { type: 'button', className: 'psx-btn psx-btn-primary', onClick: () => store.closeModal() },
+                  t('done'),
+                ),
               ),
             ),
           )

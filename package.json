@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-prompt-studio",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Prompt Studio: per-session system prompt append/replace with templates, global defaults, and live preview for DeepSeek Harness.",
   "author": "Tokenav",
   "license": "MIT",
