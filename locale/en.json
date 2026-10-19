@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Prompt Studio",
+    "description": "Per-session system prompt append/replace with a template library, global defaults, and live preview."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "dsh-plugin-prompt-studio",
+  "version": "1.0.3",
+  "description": "Prompt Studio: per-session system prompt append/replace with templates, global defaults, and live preview for DeepSeek Harness.",
+  "author": "Tokenav",
+  "license": "MIT",
+  "type": "module",
+  "homepage": "https://github.com/JnmLee/dsh-plugin-prompt-studio#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JnmLee/dsh-plugin-prompt-studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JnmLee/dsh-plugin-prompt-studio/issues"
+  },
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "prompt",
+    "system-prompt",
+    "web-ui"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  }
+}
