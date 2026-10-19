@@ -20,6 +20,8 @@ Or from a shell:
 dsh plugin add github:JnmLee/dsh-plugin-prompt-studio
 ```
 
+> Tip: if the dialog cannot resolve the HTTPS URL because an older Prompt Studio copy is already installed, use the pnpm spec `github:JnmLee/dsh-plugin-prompt-studio` instead.
+
 ### From npm
 
 The package name is `dsh-plugin-prompt-studio`. After an npm release:
