@@ -15,7 +15,7 @@ import { dirname, join } from 'node:path'
 
 export const inject = ['agents', 'systemPrompt']
 
-const PLUGIN_VERSION = '1.0.3'
+const PLUGIN_VERSION = '1.0.4'
 const STORE_VERSION = 1
 const SECTION_NAME = 'tokenav-prompt-studio'
 const APPEND_ORDER = 1_000_000
@@ -588,6 +588,47 @@ function requireSessionId(params) {
   return sessionId
 }
 
+/**
+ * Apply one per-session patch. Omitted fields keep their current value, so
+ * choosing a template never drops an explicit enable/disable flag and toggling
+ * the switch never drops the chosen template. An empty patch clears the whole
+ * session override.
+ */
+function updateSessionOverride(state, sessionId, params) {
+  const hasEnabled = Object.prototype.hasOwnProperty.call(params, 'enabled')
+  const hasTemplate = Object.prototype.hasOwnProperty.call(params, 'templateId')
+  if (!hasEnabled && !hasTemplate) {
+    delete state.sessions[sessionId]
+    return
+  }
+
+  const entry = { ...(state.sessions[sessionId] ?? {}) }
+  delete entry.updatedAt
+
+  if (hasEnabled) {
+    const enabled = asBoolean(params.enabled)
+    if (enabled === undefined) throw new RpcError('INVALID_ENABLED', 'enabled 必须是布尔值。')
+    entry.enabled = enabled
+  }
+
+  if (hasTemplate) {
+    const raw = params.templateId
+    if (raw === null || raw === undefined || raw === '') {
+      delete entry.templateId
+    } else {
+      const templateId = asId(raw)
+      if (!templateId) throw new RpcError('INVALID_TEMPLATE', '模板 ID 无效。')
+      if (!state.templates.some((template) => template.id === templateId)) {
+        throw new RpcError('TEMPLATE_NOT_FOUND', '模板不存在或已被删除。')
+      }
+      entry.templateId = templateId
+    }
+  }
+
+  if (Object.keys(entry).length === 0) delete state.sessions[sessionId]
+  else state.sessions[sessionId] = { ...entry, updatedAt: Date.now() }
+}
+
 async function dispatchRpc(body, ctx, store, engine) {
   const method = typeof body?.method === 'string' ? body.method : ''
   const params = body?.params && typeof body.params === 'object' ? body.params : {}
@@ -616,18 +657,7 @@ async function dispatchRpc(body, ctx, store, engine) {
     case 'saveSession': {
       const sessionId = requireSessionId(params)
       const state = await store.mutate((next) => {
-        const entry = {}
-        const enabled = asBoolean(params.enabled)
-        if (enabled !== undefined) entry.enabled = enabled
-        const templateId = asId(params.templateId)
-        if (templateId) {
-          if (!next.templates.some((template) => template.id === templateId)) {
-            throw new RpcError('TEMPLATE_NOT_FOUND', '模板不存在或已被删除。')
-          }
-          entry.templateId = templateId
-        }
-        if (Object.keys(entry).length === 0) delete next.sessions[sessionId]
-        else next.sessions[sessionId] = { ...entry, updatedAt: Date.now() }
+        updateSessionOverride(next, sessionId, params)
         pruneSessions(next)
       })
       const agent = ctx.agents.get(sessionId)
@@ -765,4 +795,5 @@ export const __test = {
   effectiveFor,
   normalizeState,
   buildPreview,
+  updateSessionOverride,
 }
