@@ -24,13 +24,11 @@ dsh plugin add github:JnmLee/dsh-plugin-prompt-studio
 
 ### From npm
 
-The package name is `dsh-plugin-prompt-studio`. After an npm release:
-
 ```bash
 dsh plugin add dsh-plugin-prompt-studio
 ```
 
-> The GitHub route works today; the npm package is not published yet.
+Or paste `dsh-plugin-prompt-studio` into the Add plugin dialog.
 
 ## Features
 
