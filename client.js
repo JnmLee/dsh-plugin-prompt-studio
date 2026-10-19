@@ -272,10 +272,11 @@ window.__ModuleLoader__.load({
 .psx-mini-icon{display:inline-flex;flex:none;color:var(--psx-accent)}
 .psx-icon-btn{display:inline-grid;place-items:center;flex:none;width:26px;height:26px;padding:0;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--psx-muted);cursor:pointer}
 .psx-icon-btn:hover{background:color-mix(in srgb,var(--psx-text) 7%,transparent);color:var(--psx-text)}
-.psx-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;background:color-mix(in srgb,var(--dsw-alias-bg-base) 62%,transparent);backdrop-filter:blur(3px);pointer-events:auto;animation:psx-overlay-in .14s ease-out}
+/* No scrim token exists; a neutral dark scrim keeps contrast in both themes. */
+.psx-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.38);backdrop-filter:blur(3px);pointer-events:auto;animation:psx-overlay-in .14s ease-out}
 .psx-modal{display:flex;flex-direction:column;width:min(600px,100%);max-height:min(84vh,780px);overflow:hidden;border:1px solid var(--psx-line-strong);border-radius:18px;background:var(--dsw-alias-bg-overlay);box-shadow:0 24px 80px color-mix(in srgb,var(--dsw-alias-bg-base) 60%,transparent);animation:psx-modal-in .18s ease-out}
 .psx-modal-head{display:flex;align-items:center;gap:12px;flex:none;padding:18px 20px 14px;border-bottom:1px solid var(--psx-line)}
-.psx-modal-mark{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid var(--psx-line);border-radius:11px;background:var(--psx-surface-2);color:var(--psx-accent)}
+.psx-modal-mark{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid var(--psx-line);border-radius:11px;background:var(--psx-surface-2);color:var(--psx-text)}
 .psx-modal-title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .psx-modal-title{margin:0;font-size:16px;font-weight:650;letter-spacing:-.01em}
 .psx-modal-head .psx-icon-btn{margin-left:auto}
@@ -290,8 +291,8 @@ window.__ModuleLoader__.load({
 .psx-row{display:flex;align-items:center;gap:10px;min-width:0;flex-wrap:wrap}
 .psx-modal .psx-select{height:36px}
 .psx-status-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--psx-line);border-radius:12px;background:var(--psx-surface-2)}
-.psx-status-orb{flex:none;width:9px;height:9px;border-radius:50%;background:var(--dsw-alias-state-idle-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--dsw-alias-state-idle-primary) 14%,transparent)}
-.psx-status-orb.is-on{background:var(--dsw-alias-state-success-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--dsw-alias-state-success-primary) 16%,transparent)}
+.psx-status-orb{flex:none;width:9px;height:9px;border-radius:50%;background:var(--psx-muted);box-shadow:none}
+.psx-status-orb.is-on{background:var(--psx-text);box-shadow:0 0 0 3px color-mix(in srgb,var(--psx-text) 12%,transparent)}
 .psx-status-copy{flex:1;min-width:0}
 .psx-status-title{font-size:12.5px;font-weight:600}
 .psx-status-desc{margin-top:2px;color:var(--psx-muted);font-size:11px;line-height:1.45}
@@ -1450,7 +1451,7 @@ window.__ModuleLoader__.load({
                 h('span', { className: 'psx-spacer' }),
                 h(
                   'button',
-                  { type: 'button', className: 'psx-btn psx-btn-primary', onClick: () => store.closeModal() },
+                  { type: 'button', className: 'psx-btn', onClick: () => store.closeModal() },
                   t('done'),
                 ),
               ),

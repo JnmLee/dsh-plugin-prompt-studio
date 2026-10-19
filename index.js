@@ -15,7 +15,7 @@ import { dirname, join } from 'node:path'
 
 export const inject = ['agents', 'systemPrompt']
 
-const PLUGIN_VERSION = '1.0.5'
+const PLUGIN_VERSION = '1.0.6'
 const STORE_VERSION = 1
 const SECTION_NAME = 'tokenav-prompt-studio'
 const APPEND_ORDER = 1_000_000
